@@ -5,7 +5,6 @@ namespace InfluxDB;
 use InfluxDB\Client\Admin;
 use InfluxDB\Client\Exception as ClientException;
 use InfluxDB\Driver\DriverInterface;
-use InfluxDB\Driver\Exception as DriverException;
 use InfluxDB\Driver\Guzzle;
 use InfluxDB\Driver\QueryDriverInterface;
 use InfluxDB\Driver\UDP;
@@ -352,14 +351,14 @@ class Client
     }
 
     /**
-     * @return DriverInterface|QueryDriverInterface
+     * @return Guzzle
      */
     public function getDriver()
     {
         if ($this->driver !== null) {
             return $this->driver;
         }
-
+        var_dump('debug-influx: ' . $this->baseURI);
         // set the default driver to guzzle
         $this->driver = new Guzzle(
             new \GuzzleHttp\Client(
